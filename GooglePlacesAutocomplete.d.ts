@@ -395,6 +395,7 @@ interface GooglePlacesAutocompleteProps {
   listEmptyComponent?: JSX.Element | React.ComponentType<{}>;
   listUnderlayColor?: string;
   listViewDisplayed?: 'auto' | boolean;
+  clearListOnPress: boolean;
   /** minimum length of text to search */
   minLength?: number;
   keepResultsAfterBlur?: boolean;

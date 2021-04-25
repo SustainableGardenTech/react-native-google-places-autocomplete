@@ -128,6 +128,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
   const [listViewDisplayed, setListViewDisplayed] = useState(
     props.listViewDisplayed === 'auto' ? false : props.listViewDisplayed,
   );
+  const [clearListOnPress, setClearOnPress] = useState(props.clearListOnPress === false ? false : true)
   const [url] = useState(getRequestUrl(props.requestUrl));
 
   const inputRef = useRef();
@@ -249,7 +250,9 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
           if (responseJSON.status === 'OK') {
             // if (_isMounted === true) {
             const details = responseJSON.result;
-            _disableRowLoaders();
+            if (clearListOnPress) {
+              _disableRowLoaders();
+            }
             _onBlur();
 
             setStateText(_renderDescription(rowData));
@@ -514,6 +517,7 @@ export const GooglePlacesAutocomplete = forwardRef((props, ref) => {
       request.open(
         'GET',
         `${url}/place/autocomplete/json?input=` +
+        `${url}/place/autocomplete/json?&input=` +
           encodeURIComponent(text) +
           '&' +
           Qs.stringify(props.query),
